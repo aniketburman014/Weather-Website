@@ -30,12 +30,15 @@ function App() {
     fetchWeather();
   },[query,units]);
 
+  
+
 
   const formatBackground = () => {
     if (!weather) return "from-cyan-700 to-blue-700";
-    const {dt,sunset}=weather;
+    const {dt,sunset,sunrise}=weather;
     const threshold = units === "metric" ? 25 : 60;
-    const isNight =  ( Number(dt) > Number(sunset));
+    
+    const isNight =  !( Number(sunrise)<=Number(dt) && Number(dt)<= Number(sunset));
     
     if (isNight) return "bg-gradient-to-b from-indigo-900 to-blue-900";
     if (weather.temp <= threshold) return "from-cyan-700 to-blue-700";
